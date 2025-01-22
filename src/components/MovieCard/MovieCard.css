@@ -1,0 +1,23 @@
+.card {
+    background-color: #333;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.card__img {
+    aspect-ratio: 2/3;
+    display: inline-block;
+    height: auto;
+    margin-bottom: 1rem;
+    object-fit: cover;
+    width: 100%;
+}
+  
+.card__title {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+  
+.card__info {
+    margin-top: 0;
+}

@@ -1,44 +1,36 @@
-import reactLogo from "./assets/react.svg"
+import { Suspense, useState, useDeferredValue } from "react"
+import { MovieResults } from "./components/MovieResults/MovieResults"
 import "./App.css"
 
 function App() {
+  const [query, setQuery] = useState()
+  const deferredQuery = useDeferredValue(query)
+  const isStale = query !== deferredQuery;
+
+  const onSubmitHandler = (event) => {
+    event.preventDefault()
+
+    const {elements} = event.target
+
+    setQuery(`${elements["search-text"].value}__${Date.now()}`);
+  }
 
   return (
     <main>
       <h1>Movie Catalog</h1>
 
-      <form className="form">
+      <form className="form" onSubmit={onSubmitHandler}>
         <input className="form__search" name="search-text" type="search" placeholder="Search movie..."/>
         <button className="form__button">
           Search
         </button>
       </form>
 
-      <div className="cards">
-        <article className="card">
-          <img className="card__img" src={reactLogo} alt="Movie title" />
-          <h3 className="card__title">Movie title</h3>
-          <p className="card__info">2025</p>
-        </article>
-
-        <article className="card">
-          <img className="card__img" src={reactLogo} alt="Movie title" />
-          <h3 className="card__title">Movie title</h3>
-          <p className="card__info">2025</p>
-        </article>
-
-        <article className="card">
-          <img className="card__img" src={reactLogo} alt="Movie title" />
-          <h3 className="card__title">Movie title</h3>
-          <p className="card__info">2025</p>
-        </article>
-
-        <article className="card">
-          <img className="card__img" src={reactLogo} alt="Movie title" />
-          <h3 className="card__title">Movie title</h3>
-          <p className="card__info">2025</p>
-        </article>
-      </div>
+      <Suspense fallback={<p>Loading...</p>}>
+        <div style={{ opacity: isStale ? 0.5 : 1 }}>
+          <MovieResults query={deferredQuery} />
+        </div>
+      </Suspense>
     </main>
   )
 }
