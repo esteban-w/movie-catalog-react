@@ -1,5 +1,6 @@
 import { Suspense, useState, useDeferredValue } from "react"
 import { MovieResults } from "./components/MovieResults/MovieResults"
+import { MovieResultsLoading } from "./components/MovieResults/MovieResultsLoading"
 import "./App.css"
 
 function App() {
@@ -26,9 +27,9 @@ function App() {
         </button>
       </form>
 
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback={<MovieResultsLoading />}>
         <div style={{ opacity: isStale ? 0.5 : 1 }}>
-          <MovieResults query={deferredQuery} />
+          <MovieResults query={query} />
         </div>
       </Suspense>
     </main>

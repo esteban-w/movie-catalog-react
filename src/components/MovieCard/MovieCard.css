@@ -4,6 +4,10 @@
     overflow: hidden;
 }
 
+.card:empty {
+    padding-top: 184%;
+}
+
 .card__img {
     aspect-ratio: 2/3;
     display: inline-block;
