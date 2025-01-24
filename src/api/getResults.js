@@ -1,5 +1,5 @@
-export async function getResults(url, adapter = (res) => res) {
-  return fetch(url)
+export async function getResults({url, options = {},  adapter = (res) => res}) {
+  return fetch(url, options)
     .then(response => {
       if (response.ok) {
         return response.json().then(adapter)
@@ -7,7 +7,9 @@ export async function getResults(url, adapter = (res) => res) {
       return {
         errors: [
           {
-            title: "response error"
+            title: "response error",
+            status: response.status,
+            meta: { url },
           }
         ],
       }
@@ -16,7 +18,8 @@ export async function getResults(url, adapter = (res) => res) {
       errors: [
         {
           title: "bad request / network error",
-          detail: error
+          detail: error.message,
+          meta: { url },
         }
       ],
     }))
