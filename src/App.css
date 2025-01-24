@@ -6,7 +6,12 @@
 }
 
 form {
+    display: inline-block;
     margin-bottom: 3rem;
+}
+
+.form__field {
+    display: flex;
 }
 
 input:has(+ button) {

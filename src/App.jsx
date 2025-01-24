@@ -21,10 +21,12 @@ function App() {
       <h1>Movie Catalog</h1>
 
       <form className="form" onSubmit={onSubmitHandler}>
-        <input className="form__search" name="search-text" type="search" placeholder="Search movie..."/>
-        <button className="form__button">
-          Search
-        </button>
+        <div className="form__field">
+          <input className="form__search" name="search-text" type="search" placeholder="Search movie..."/>
+          <button className="form__button">
+            Search
+          </button>
+        </div>
       </form>
 
       <Suspense fallback={<MovieResultsLoading />}>
