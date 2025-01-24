@@ -13,7 +13,7 @@ function App() {
 
     const {elements} = event.target
 
-    setQuery(`${elements["search-text"].value}__${Date.now()}`);
+    setQuery(`${elements["search-text"].value}__${Date.now()}`)
   }
 
   return (

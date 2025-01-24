@@ -1,6 +1,7 @@
 import { use } from "react"
 import { getResults } from "../api/getResults"
 import { adapter } from "../api/adapters/omdb-response"
+const { VITE_API_KEY } = import.meta.env
 
 const promiseCache = {}
 const successCache = {}
@@ -16,9 +17,12 @@ export function useResults(query) {
   if (!promiseCache[query]) {
     abortController?.abort('Replaced by new request')
     abortController = new AbortController()
+    const queryParams = new URLSearchParams({ apikey: VITE_API_KEY, s: queryText })
     promiseCache[query] = getResults({ 
-      url: `/src/api/${queryText}-response.json`, 
-      options: { signal: abortController.signal },
+      url: `https://www.omdbapi.com/?${queryParams.toString()}`, 
+      options: {
+        signal: abortController.signal
+      },
       adapter, 
     })
   }
