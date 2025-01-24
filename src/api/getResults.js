@@ -18,7 +18,7 @@ export async function getResults({url, options = {},  adapter = (res) => res}) {
       errors: [
         {
           title: "bad request / network error",
-          detail: error.message,
+          detail: error.message || error.name,
           meta: { url },
         }
       ],
