@@ -16,6 +16,10 @@
     object-fit: cover;
     width: 100%;
 }
+
+.card__body {
+    padding-inline: 1rem;
+}
   
 .card__title {
     margin-top: 0;
