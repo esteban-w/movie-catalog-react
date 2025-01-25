@@ -42,7 +42,9 @@ function App() {
       </form>
 
       <Suspense fallback={<MovieResultsLoading />}>
-          <MovieResults query={deferredQuery} isProcessing={isStale}/>
+        <div style={{opacity: isStale ? 0.5 : 1}}>
+          <MovieResults query={deferredQuery}/>
+        </div>
       </Suspense>
     </main>
   )
