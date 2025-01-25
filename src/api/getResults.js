@@ -1,5 +1,10 @@
+let abortController
+
 export async function getResults({url, options = {},  adapter = (res) => res}) {
-  return fetch(url, options)
+  abortController?.abort('Replaced by new request')
+  abortController = new AbortController()
+
+  return fetch(url, {...options, signal: abortController.signal})
     .then(response => {
       if (response.ok) {
         return response.json().then(adapter)

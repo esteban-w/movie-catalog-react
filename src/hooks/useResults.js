@@ -5,7 +5,6 @@ const { VITE_API_KEY } = import.meta.env
 
 const promiseCache = {}
 const successCache = {}
-let abortController
 
 export function useResults(query) {
   const queryText = query.replace(/__\d+$/, '')
@@ -15,21 +14,14 @@ export function useResults(query) {
   }
 
   if (!promiseCache[query]) {
-    abortController?.abort('Replaced by new request')
-    abortController = new AbortController()
     const queryParams = new URLSearchParams({ apikey: VITE_API_KEY, s: queryText })
     promiseCache[query] = getResults({ 
-      url: `https://www.omdbapi.com/?${queryParams.toString()}`, 
-      options: {
-        signal: abortController.signal
-      },
+      url: `https://www.omdbapi.com/?${queryParams.toString()}`,
       adapter, 
     })
   }
 
   const result = use(promiseCache[query])
-
-  abortController = null
 
   if (result?.errors === undefined) {
     successCache[queryText] = result.data
