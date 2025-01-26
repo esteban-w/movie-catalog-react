@@ -1,4 +1,4 @@
-import { responseAdapter } from "./omdb-response"
+import { responseAdapter } from "./response"
 const { VITE_API_KEY } = import.meta.env
 
 export function getRequestConfig(query) {

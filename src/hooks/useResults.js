@@ -1,6 +1,6 @@
 import { use } from "react"
 import { fetchResults } from "../api/fetchResults"
-import { getRequestConfig } from "../api/adapters/omdb-request-config"
+import { getRequestConfig } from "../api/adapters/omdb/request-config"
 
 const promiseCache = {}
 const successCache = {}
