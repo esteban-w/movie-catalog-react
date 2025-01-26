@@ -1,20 +1,20 @@
 let abortController
 
-export async function fetchResults({url, options = {},  adapter = (res) => res}) {
+export async function fetchResults({ request, responseAdapter = (res) => res }) {
   abortController?.abort('Replaced by new request')
   abortController = new AbortController()
 
-  return fetch(url, {...options, signal: abortController.signal})
+  return fetch(request, { signal: abortController.signal })
     .then(response => {
       if (response.ok) {
-        return response.json().then(adapter)
+        return response.json().then(responseAdapter)
       }
       return {
         errors: [
           {
             title: "response error",
             status: response.status,
-            meta: { url },
+            meta: { url: request.url },
           }
         ],
       }
@@ -24,7 +24,7 @@ export async function fetchResults({url, options = {},  adapter = (res) => res})
         {
           title: "bad request / network error",
           detail: error.message || error.name,
-          meta: { url },
+          meta: { url: request.url },
         }
       ],
     }))

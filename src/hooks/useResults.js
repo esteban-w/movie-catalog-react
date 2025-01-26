@@ -1,7 +1,6 @@
 import { use } from "react"
 import { fetchResults } from "../api/fetchResults"
-import { adapter } from "../api/adapters/omdb-response"
-const { VITE_API_KEY } = import.meta.env
+import { getRequestConfig } from "../api/adapters/omdb-request-config"
 
 const promiseCache = {}
 const successCache = {}
@@ -14,11 +13,7 @@ export function useResults(query) {
   }
 
   if (!promiseCache[query]) {
-    const queryParams = new URLSearchParams({ apikey: VITE_API_KEY, s: queryText })
-    promiseCache[query] = fetchResults({ 
-      url: `https://www.omdbapi.com/?${queryParams.toString()}`,
-      adapter, 
-    })
+    promiseCache[query] = fetchResults(getRequestConfig(queryText))
   }
 
   const result = use(promiseCache[query])

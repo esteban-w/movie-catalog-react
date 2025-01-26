@@ -1,4 +1,4 @@
-export function adapter(response) {
+export function responseAdapter(response) {
   const resourceItems = (response.Search || []).map(item => ({
     id: item.imdbID,
     type: item.Type,
