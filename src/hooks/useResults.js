@@ -1,5 +1,5 @@
 import { use } from "react"
-import { fetchResults } from "../api/fetchResults"
+import { fetchData } from "../api/fetchData"
 import { getRequestConfig } from "../api/adapters/omdb/request-config"
 
 const promiseCache = {}
@@ -16,7 +16,7 @@ export function useResults(query) {
   }
 
   if (!promiseCache[fetchId]) {
-    promiseCache[fetchId] = fetchResults(getRequestConfig(query))
+    promiseCache[fetchId] = fetchData(getRequestConfig(query))
   }
 
   const result = use(promiseCache[fetchId])

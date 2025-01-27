@@ -1,6 +1,6 @@
 let abortController
 
-export async function fetchResults({ request, responseAdapter = (res) => res }) {
+export async function fetchData({ request, responseAdapter = (res) => res }) {
   abortController?.abort('Replaced by new request')
   abortController = new AbortController()
 
