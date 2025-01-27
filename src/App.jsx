@@ -15,13 +15,13 @@ function App() {
 
     const {elements} = event.target
 
-    setQuery(`${elements["search-text"].value}__${Date.now()}`)
+    setQuery(elements["search-text"].value)
   }
 
   const onChangeHandler = (event) => {
     const {value} = event.target
     
-    debounceFn(() => setQuery(`${value}__${Date.now()}`))
+    debounceFn(() => setQuery(value))
   }
 
   return (
