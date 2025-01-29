@@ -1,3 +1,5 @@
+import { isUrlValid } from "../../../utils/isUrlValid"
+
 export function responseAdapter(response) {
   const resourceItems = (response.Search || []).map(item => ({
     id: item.imdbID,
@@ -5,7 +7,7 @@ export function responseAdapter(response) {
     attributes: {
       title: item.Title,
       year: item.Year,
-      image: item.Poster,
+      image: isUrlValid(item.Poster) ? item.Poster : null,
     },
   }))
 

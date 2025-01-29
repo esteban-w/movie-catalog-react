@@ -10,11 +10,32 @@
 
 .card__img {
     aspect-ratio: 2/3;
-    display: inline-block;
     height: auto;
     margin-bottom: 1rem;
     object-fit: cover;
+    vertical-align: top;
     width: 100%;
+}
+
+.card__no-image {
+    align-items: center;
+    aspect-ratio: 2/3;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    justify-content: center;
+    opacity: 0.3;
+}
+
+.card__no-image-icon {
+    fill: currentColor;
+    width: 40%;
+}
+
+.card__no-image-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
 .card__body {
