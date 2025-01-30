@@ -25,7 +25,7 @@ export function useResults(query) {
 
   const result = use(promiseCache[fetchId])
 
-  if (result?.errors === undefined) {
+  if (!result.errors) {
     successCache[queryKey] = result.data
   }
 
