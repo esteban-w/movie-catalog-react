@@ -1,5 +1,6 @@
 import { getDebounceFn } from "../../utils/getDebounceFn"
 import { useGlobalContext } from "../../context/Global/GlobalContext"
+import { sanitizeQuery, queryCharClassContent } from "../../utils/sanitizeQuery"
 import "./SearchForm.css"
 
 export function SearchForm() {
@@ -11,14 +12,15 @@ export function SearchForm() {
     event.preventDefault()
 
     const {elements} = event.target
+    const {value} = elements[searchInputName]
 
-    setQuery(elements[searchInputName].value)
+    setQuery(sanitizeQuery(value))
   }
 
   const onChangeHandler = (event) => {
     const {value} = event.target
     
-    debounceFn(() => setQuery(value))
+    debounceFn(() => setQuery(sanitizeQuery(value)))
   }
 
   return (
@@ -27,8 +29,10 @@ export function SearchForm() {
         <input className="form__search" 
                name={searchInputName} 
                type="search" 
+               pattern={`[${queryCharClassContent}]+`}
                placeholder="Search movie..." 
-               onChange={onChangeHandler}/>
+               onChange={onChangeHandler}
+               required />
         <button className="form__button">
           Search
         </button>
