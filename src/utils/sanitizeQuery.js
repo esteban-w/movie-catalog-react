@@ -1,6 +1,4 @@
-export const queryCharClassContent = '\\w\\s#&'
-
-const querySanitizingRegex = new RegExp(`[^${queryCharClassContent}]`, 'gi')
+const querySanitizingRegex = new RegExp('[^\\w\\s#&]', 'gi')
 
 export function sanitizeQuery(query) {
   return query.replace(querySanitizingRegex, '')
