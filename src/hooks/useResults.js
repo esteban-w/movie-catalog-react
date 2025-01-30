@@ -6,13 +6,17 @@ const promiseCache = {}
 const successCache = {}
 let fetchId = ''
 
+const getQueryKey = (value) => value.replace(/\s/g, '_').toLowerCase()
+
 export function useResults(query) {
-  if (successCache[query]) {
-    return successCache[query]
+  const queryKey = getQueryKey(query)
+
+  if (successCache[queryKey]) {
+    return successCache[queryKey]
   }
 
-  if (fetchId.replace(/__\d+$/, '') !== query) {
-    fetchId = `${query}__${Date.now()}`
+  if (fetchId.replace(/__\d+$/, '') !== queryKey) {
+    fetchId = `${queryKey}__${Date.now()}`
   }
 
   if (!promiseCache[fetchId]) {
@@ -22,7 +26,7 @@ export function useResults(query) {
   const result = use(promiseCache[fetchId])
 
   if (result?.errors === undefined) {
-    successCache[query] = result.data
+    successCache[queryKey] = result.data
   }
 
   return result.data || []
