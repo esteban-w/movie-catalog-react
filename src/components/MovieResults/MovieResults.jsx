@@ -2,8 +2,7 @@ import { useState, useMemo } from "react"
 import { ResultsToolbar } from "../ResultsToolbar/ResultsToolbar"
 import { SortResults } from "../SortResults/SortResults"
 import { SORT_NEWEST, SORT_OLDEST } from "../../models/sort-constants"
-import { MovieCard } from "../MovieCard/MovieCard"
-import "./MovieResults.css"
+import { MovieCards } from "../MovieCards/MovieCards"
 
 export function MovieResults({ results }) {
   if (!results.length) {
@@ -28,11 +27,7 @@ export function MovieResults({ results }) {
       <ResultsToolbar>
         <SortResults setSortValue={setSortValue} />
       </ResultsToolbar>
-      <div className="cards">
-        {items.map(({ id, attributes }) => (
-          <MovieCard key={id} {...attributes} />
-        ))}
-      </div>
+      <MovieCards items={items} />
     </>
   )
 }
