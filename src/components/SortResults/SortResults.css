@@ -1,0 +1,10 @@
+.sort-results {
+    display: flex;
+    text-align: left;
+    align-items: center;
+}
+
+.sort-results__label {
+    margin-inline: 0.5rem;
+    white-space: nowrap;
+}
