@@ -15,8 +15,8 @@ export function MovieResults({ results }) {
       return results
     }
     const sortCompareMap = {
-      [SORT_OLDEST]: (a, b) => a.attributes.year - b.attributes.year,
-      [SORT_NEWEST]: (a, b) => b.attributes.year - a.attributes.year,
+      [SORT_OLDEST]: (a, b) => a.attributes.release_year - b.attributes.release_year,
+      [SORT_NEWEST]: (a, b) => b.attributes.release_year - a.attributes.release_year,
     }
     
     return [...results].sort(sortCompareMap[sortValue])

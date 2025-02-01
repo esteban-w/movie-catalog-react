@@ -6,6 +6,7 @@ export function responseAdapter(response) {
     type: item.Type,
     attributes: {
       title: item.Title,
+      release_year: parseInt((item.Year?.match(/\d{4}/) || [0])[0]),
       year: item.Year,
       image: isUrlValid(item.Poster) ? item.Poster : null,
     },
