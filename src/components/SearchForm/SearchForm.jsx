@@ -14,13 +14,17 @@ export function SearchForm() {
     const {elements} = event.target
     const {value} = elements[searchInputName]
 
-    setQuery(sanitizeQuery(value))
+    if (value) {
+      setQuery(sanitizeQuery(value))
+    }
   }
 
   const onChangeHandler = (event) => {
     const {value} = event.target
     
-    debounceFn(() => setQuery(sanitizeQuery(value)))
+    if (value) {
+      debounceFn(() => setQuery(sanitizeQuery(value)))
+    }
   }
 
   return (
