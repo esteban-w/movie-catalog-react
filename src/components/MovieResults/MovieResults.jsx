@@ -4,10 +4,10 @@ import { SortResults } from "../SortResults/SortResults"
 import { MovieCards } from "../MovieCards/MovieCards"
 
 export function MovieResults({ results }) {
-  const [sortCompare, setSortCompare] = useState()
-  const items = useMemo(() => {
-    return !sortCompare ? results : [...results].sort(sortCompare)
-  }, [results, sortCompare])
+  const [sortStrategy, setSortStrategy] = useState()
+  const items = useMemo(() =>
+    !sortStrategy ? results : [...results].sort(sortStrategy)
+  , [results, sortStrategy])
 
   if (!results.length) {
     return <p>No results found</p>
@@ -16,7 +16,7 @@ export function MovieResults({ results }) {
   return (
     <>
       <ResultsToolbar>
-        <SortResults setSortCompare={setSortCompare} />
+        <SortResults setSortStrategy={setSortStrategy} />
       </ResultsToolbar>
       <MovieCards items={items} />
     </>

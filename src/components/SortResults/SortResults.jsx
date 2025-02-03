@@ -1,24 +1,17 @@
-import { useMemo } from "react"
-import { SORT_OLDEST, SORT_NEWEST } from "../../models/sort-constants"
-import { sortOptions } from "../../models/sort-constants"
+import { sortStrategyMap, sortOptions } from "../../models/sort-constants"
 import "./SortResults.css"
 
-export function SortResults({ setSortCompare }) {
-  const sortCompareMap = useMemo(() => ({
-    [SORT_OLDEST]: (a, b) => a.attributes.release_year - b.attributes.release_year,
-    [SORT_NEWEST]: (a, b) => b.attributes.release_year - a.attributes.release_year,
-  }), [])
-
+export function SortResults({ setSortStrategy }) {
   const onChangeHandler = (event) => {
     const {value} = event.target
     
     if (!value) {
-      setSortCompare(null)
+      setSortStrategy(null)
       return
     }
 
-    if (sortCompareMap[value]) {
-      setSortCompare(() => sortCompareMap[value])
+    if (sortStrategyMap[value]) {
+      setSortStrategy(() => sortStrategyMap[value])
     }
   }
 
