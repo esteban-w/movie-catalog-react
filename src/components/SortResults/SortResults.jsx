@@ -1,27 +1,26 @@
-import { memo, useRef, useMemo, useCallback } from "react"
+import { useMemo } from "react"
 import { SORT_OLDEST, SORT_NEWEST } from "../../models/sort-constants"
 import { sortOptions } from "../../models/sort-constants"
 import "./SortResults.css"
 
-export const SortResults = memo(function SortResults({ results, setItems }) {
-  const itemsOrderRef = useRef(results.map((item, index) => ({ index, value: item.attributes.release_year })))
+export function SortResults({ setSortCompare }) {
   const sortCompareMap = useMemo(() => ({
-    [SORT_OLDEST]: (a, b) => a.value - b.value,
-    [SORT_NEWEST]: (a, b) => b.value - a.value,
+    [SORT_OLDEST]: (a, b) => a.attributes.release_year - b.attributes.release_year,
+    [SORT_NEWEST]: (a, b) => b.attributes.release_year - a.attributes.release_year,
   }), [])
 
-  const onChangeHandler = useCallback((event) => {
+  const onChangeHandler = (event) => {
     const {value} = event.target
     
     if (!value) {
-      setItems([...results])
+      setSortCompare(null)
       return
     }
 
     if (sortCompareMap[value]) {
-      setItems(itemsOrderRef.current.sort(sortCompareMap[value]).map(({ index }) => results[index]))
+      setSortCompare(() => sortCompareMap[value])
     }
-  }, [])
+  }
 
   return (
     <div className="sort-results">
@@ -34,4 +33,4 @@ export const SortResults = memo(function SortResults({ results, setItems }) {
       </select>
     </div>
   )
-})
+}

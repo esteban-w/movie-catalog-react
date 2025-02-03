@@ -1,10 +1,13 @@
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { ResultsToolbar } from "../ResultsToolbar/ResultsToolbar"
 import { SortResults } from "../SortResults/SortResults"
 import { MovieCards } from "../MovieCards/MovieCards"
 
 export function MovieResults({ results }) {
-  const [items, setItems] = useState([...results])
+  const [sortCompare, setSortCompare] = useState()
+  const items = useMemo(() => {
+    return !sortCompare ? results : [...results].sort(sortCompare)
+  }, [results, sortCompare])
 
   if (!results.length) {
     return <p>No results found</p>
@@ -13,7 +16,7 @@ export function MovieResults({ results }) {
   return (
     <>
       <ResultsToolbar>
-        <SortResults results={results} setItems={setItems} />
+        <SortResults setSortCompare={setSortCompare} />
       </ResultsToolbar>
       <MovieCards items={items} />
     </>
