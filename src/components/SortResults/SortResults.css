@@ -4,6 +4,10 @@
     align-items: center;
 }
 
+.sort-results:empty {
+    min-height: 42px;
+}
+
 .sort-results__label {
     margin-inline: 0.5rem;
     white-space: nowrap;
