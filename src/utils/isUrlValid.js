@@ -2,7 +2,7 @@ export function isUrlValid(url) {
   try {
     new URL(url)
     return true
-  } catch (error) {
+  } catch {
     return false
   }
 }
