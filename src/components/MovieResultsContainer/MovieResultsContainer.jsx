@@ -4,12 +4,11 @@ import { MovieResults } from "../MovieResults/MovieResults"
 
 export function MovieResultsContainer() {
   const { query } = useGlobalContext()
+  const results = useResults(query)
 
   if (!query) {
     return null
   }
-  
-  const results = useResults(query)
 
   return (
     <MovieResults results={results} />
