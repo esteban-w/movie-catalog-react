@@ -9,6 +9,10 @@ let fetchId = ''
 const getQueryKey = (value) => value.replace(/\s/g, '_').toLowerCase()
 
 export function useResults(query) {
+  if (!query) {
+    return []
+  }
+  
   const queryKey = getQueryKey(query)
 
   if (successCache[queryKey]) {
