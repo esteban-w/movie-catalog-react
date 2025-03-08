@@ -1,6 +1,12 @@
 import "./MovieCard.css";
 
-export function MovieCard({ title, year, image }) {
+type MovieCardProps = {
+  title: string;
+  year: string;
+  image: string | null;
+}
+
+export function MovieCard({ title, year, image }: MovieCardProps) {
   return (
     <article className="card">
       {image ? (

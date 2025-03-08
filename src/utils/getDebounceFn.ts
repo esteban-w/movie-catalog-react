@@ -1,7 +1,7 @@
 export function getDebounceFn() {
-  let timeoutId
+  let timeoutId: number | undefined
   
-  return function(fn, milliseconds = 500) {
+  return function(fn: () => void, milliseconds = 500) {
     clearTimeout(timeoutId)
 
     timeoutId = setTimeout(fn, milliseconds)

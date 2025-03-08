@@ -1,14 +1,23 @@
 import { use } from "react"
+import { JsonApiData, JsonApiError, JsonApiResourceItem } from "../types/api/jsonApi.types"
 import { fetchData } from "../api/fetchData"
 import { getRequestConfig } from "../api/adapters/omdb/request-config"
 
-const promiseCache = {}
-const successCache = {}
+type DataCache = {
+  [key: string]: JsonApiResourceItem[]
+}
+
+type PromiseCache = {
+  [key: string]: Promise<JsonApiError | JsonApiData>
+}
+
+const promiseCache: PromiseCache = {}
+const successCache: DataCache = {}
 let fetchId = ''
 
-const getQueryKey = (value) => value.replace(/\s/g, '_').toLowerCase()
+const getQueryKey = (value: string) => value.replace(/\s/g, '_').toLowerCase()
 
-export function useResults(query) {
+export function useResults(query: string) {
   if (!query) {
     return []
   }
@@ -29,9 +38,9 @@ export function useResults(query) {
 
   const result = use(promiseCache[fetchId])
 
-  if (!result.errors) {
+  if ('data' in result) {
     successCache[queryKey] = result.data
   }
 
-  return result.data || []
+  return successCache[queryKey] || []
 }

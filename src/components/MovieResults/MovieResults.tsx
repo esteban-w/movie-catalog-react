@@ -1,10 +1,16 @@
 import { useState, useMemo } from "react"
+import { SortStrategy } from "../../types/models/sort.types"
+import { JsonApiResourceItem } from "../../types/api/jsonApi.types"
 import { ResultsToolbar } from "../ResultsToolbar/ResultsToolbar"
 import { SortResults } from "../SortResults/SortResults"
 import { MovieCards } from "../MovieCards/MovieCards"
 
-export function MovieResults({ results }) {
-  const [sortStrategy, setSortStrategy] = useState()
+type MovieResultsProps = {
+  results: JsonApiResourceItem[]
+}
+
+export function MovieResults({ results }: MovieResultsProps) {
+  const [sortStrategy, setSortStrategy] = useState<SortStrategy | null>(null)
   const items = useMemo(() =>
     !sortStrategy ? results : [...results].sort(sortStrategy)
   , [results, sortStrategy])

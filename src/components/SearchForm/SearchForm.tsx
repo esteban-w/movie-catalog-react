@@ -1,3 +1,4 @@
+import { FormEvent, ChangeEvent } from "react"
 import { getDebounceFn } from "../../utils/getDebounceFn"
 import { useGlobalContext } from "../../context/Global/GlobalContext"
 import { sanitizeQuery } from "../../utils/sanitizeQuery"
@@ -8,18 +9,22 @@ export function SearchForm() {
   const debounceFn = getDebounceFn()
   const searchInputName = "search-text"
 
-  const onSubmitHandler = (event) => {
+  const onSubmitHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    const {elements} = event.target
-    const {value} = elements[searchInputName]
+    const {elements} = event.currentTarget
+    const searchInput = elements.namedItem(searchInputName)
+    
+    if (!(searchInput instanceof HTMLInputElement)) {
+      return
+    }
 
-    if (value) {
-      setQuery(sanitizeQuery(value))
+    if (searchInput.value) {
+      setQuery(sanitizeQuery(searchInput.value))
     }
   }
 
-  const onChangeHandler = (event) => {
+  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const {value} = event.target
     
     if (value) {

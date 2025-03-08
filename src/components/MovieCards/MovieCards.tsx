@@ -1,7 +1,12 @@
+import { JsonApiResourceItem } from "../../types/api/jsonApi.types"
 import { MovieCard } from "../MovieCard/MovieCard"
 import "./MovieCards.css"
 
-export function MovieCards({ items }) {
+type MovieCardsProps = {
+  items: JsonApiResourceItem[]
+}
+
+export function MovieCards({ items }: MovieCardsProps) {
   return (
     <div className="cards">
       {items.map(({ id, attributes }) => (

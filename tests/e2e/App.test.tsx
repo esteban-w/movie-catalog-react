@@ -1,3 +1,4 @@
+import React from "react"
 import { describe, test, expect, vi, beforeAll, afterAll } from "vitest"
 import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
@@ -9,18 +10,6 @@ describe('<App />', () => {
 
   beforeAll(() => {
     const fetchMock = vi.fn()
-    vi.stubGlobal('fetch', fetchMock)
-  })
-
-  afterAll(() => {
-    vi.resetAllMocks()
-  })
-  
-  test('should search movie and get movie results', async () => {
-    // preparation setup 
-    const user = userEvent.setup()
-
-    globalThis.fetch
       .mockResolvedValue({
         ok: true,
         json: async () => searchResponse
@@ -30,11 +19,22 @@ describe('<App />', () => {
         json: async () => noResultsResponse
       })
 
+    vi.stubGlobal('fetch', fetchMock)
+  })
+
+  afterAll(() => {
+    vi.unstubAllGlobals()
+  })
+  
+  test('should search movie and get movie results', async () => {
+    // preparation setup 
+    const user = userEvent.setup()
+
     render(<App />)
 
     // check main search input renders
     const searchInput = screen.getByRole('searchbox')
-    expect(searchInput).toBeDefined
+    expect(searchInput).toBeDefined()
 
     // type query in main search input
     await user.type(searchInput, 'no results')
@@ -42,8 +42,7 @@ describe('<App />', () => {
     await waitFor(() => {
       // check no results text renders
       const noResultsParagraph = screen.getByText('No results found')
-      expect(noResultsParagraph).toBeDefined
-      
+      expect(noResultsParagraph).toBeDefined()    
     })
     
     // type query in main search input
@@ -52,7 +51,7 @@ describe('<App />', () => {
     await waitFor(() => {
       // check results render
       const cardHeading = screen.getByRole('heading', { name: 'X-Men: Days of Future Past' })
-      expect(cardHeading).toBeDefined
+      expect(cardHeading).toBeDefined()
     })
   })
 })

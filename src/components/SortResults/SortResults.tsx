@@ -1,8 +1,14 @@
+import { ChangeEvent, Dispatch, SetStateAction} from "react"
 import { sortStrategyMap, sortOptions } from "../../models/sort-constants"
+import { SortStrategy } from "../../types/models/sort.types"
 import "./SortResults.css"
 
-export function SortResults({ setSortStrategy }) {
-  const onChangeHandler = (event) => {
+type SortResultsProps = {
+  setSortStrategy: Dispatch<SetStateAction<SortStrategy | null>>
+}
+
+export function SortResults({ setSortStrategy }: SortResultsProps) {
+  const onChangeHandler = (event: ChangeEvent<HTMLSelectElement>) => {
     const {value} = event.target
     
     if (!value) {
@@ -10,7 +16,7 @@ export function SortResults({ setSortStrategy }) {
       return
     }
 
-    if (sortStrategyMap[value]) {
+    if (value in sortStrategyMap) {
       setSortStrategy(() => sortStrategyMap[value])
     }
   }
